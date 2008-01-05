@@ -1,0 +1,26 @@
+Build Instructions
+------------------
+
+make sync LINUX=/path/to/kernel
+make
+make install (as root)
+
+Where /path/to/kernel is the path to a recent kernel tree containing virtio
+drivers.  At the moment, this must be Rusty Russell's virtio patch queue[1]
+applied on top of Linus' git tree[2].
+
+[1] http://ozlabs.org/~rusty/kernel/hg
+[2] git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux-2.6.git
+
+Supported Kernels
+-----------------
+
+2.6.24, 2.6.23, 2.6.22, 2.6.21, 2.6.20, 2.6.19, 2.6.18
+
+Known Issues
+------------
+
+The virtio_net and virtio_blk modules will not load automatically unless the
+kernel version is at least 2.6.24.
+
+virtio_net's performance is severely degraded on kernels older than 2.6.24.
