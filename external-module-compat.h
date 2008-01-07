@@ -59,7 +59,7 @@ struct napi_struct {
 #define netif_napi_add(dev, napi, pollfn, weightval)	\
 do {							\
 	(dev)->poll = (pollfn);				\
-	(dev)->weight = (weightval);			\
+	(dev)->weight = 16;				\
 } while(0)
 #define netif_rx_schedule(dev, napi) netif_rx_schedule(dev)
 
