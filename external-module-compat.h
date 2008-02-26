@@ -145,4 +145,13 @@ static inline u8 pci_dev_revision(struct pci_dev *dev)
 	return class & 0xff;
 }
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(2,6,23)
+
+static inline unsigned long sg_phys(struct scatterlist *sg)
+{
+	return page_to_phys(sg_page(sg)) + sg->offset;
+}
+
+#endif
+
 #endif
