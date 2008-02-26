@@ -134,4 +134,15 @@ typedef _Bool bool;
 #include "include/linux/virtio_net.h"
 #include "include/linux/virtio_blk.h"
 
+#include <linux/pci_regs.h>
+#include <linux/pci.h>
+
+static inline u8 pci_dev_revision(struct pci_dev *dev)
+{
+	u32 class;
+
+	pci_read_config_dword(dev, PCI_CLASS_REVISION, &class);
+	return class & 0xff;
+}
+
 #endif

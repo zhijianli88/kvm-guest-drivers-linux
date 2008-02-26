@@ -84,6 +84,8 @@
     need_endif_indent_brace = 1;
 }
 
+{ sub(/\<pci_dev->revision\>/, "pci_dev_revision(pci_dev)") }
+
 { print }
 
 /^	\}$/ && need_endif_indent_brace {
