@@ -45,8 +45,8 @@
     print "		return 1;";
     print "	}";
     print "";
-    print "	no_work = vi->rvq->vq_ops->enable_cb(vi->rvq);";
     print "	netif_rx_complete(vi->dev);";
+    print "	no_work = vi->rvq->vq_ops->enable_cb(vi->rvq);";
     print "";
     print "	if (!no_work && netif_rx_reschedule(vi->dev, received)) {";
     print "		skb = NULL;";
@@ -60,6 +60,32 @@
     print "}";
     print "#else";
     virtnet_poll = 1
+}
+
+/\tnetif_rx_schedule\(/ {
+    print "#ifdef COMPAT_napi";
+    print "	vi->rvq->vq_ops->enable_cb(vi->rvq);";
+    print "	if (netif_rx_schedule_prep(vi->dev)) {";
+    print "		vi->rvq->vq_ops->disable_cb(vi->rvq);";
+    print "		__netif_rx_schedule(vi->dev);";
+    print "	} else";
+    print "		vi->rvq->vq_ops->enable_cb(vi->rvq);";
+    print "#else";
+    need_endif = 1
+}
+
+/netif_rx_schedule_prep/ {
+    print "#ifdef COMPAT_napi";
+    print "\tif (netif_rx_schedule_prep(vi->dev)) {";
+    print "#else";
+    need_endif = 1
+}
+
+/__netif_rx_schedule/ {
+    print "#ifdef COMPAT_napi";
+    print "\t\t__netif_rx_schedule(vi->dev);";
+    print "#else";
+    need_endif = 1
 }
 
 /dev->stats/ {
