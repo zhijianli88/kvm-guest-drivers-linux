@@ -113,6 +113,13 @@
     need_endif_indent_brace = 1;
 }
 
+/skb_transport_header/ {
+    print "#ifdef COMPAT_transport_header";
+    print "BUG();";
+    print "#else";
+    need_endif = 1;
+}
+
 { sub(/\<pci_dev->revision\>/, "pci_dev_revision(pci_dev)") }
 
 { print }

@@ -79,6 +79,7 @@ do {							\
 #define COMPAT_INIT_WORK
 #define COMPAT_f_dentry
 #define COMPAT_net_stats
+#define COMPAT_transport_header
 
 #define __maybe_unused
 
