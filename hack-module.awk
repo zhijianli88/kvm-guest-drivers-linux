@@ -106,7 +106,10 @@
 }
 
 /ip_summed == CHECKSUM_PARTIAL\)/ {
-    print "#ifndef COMPAT_csum_offset";
+    print "#ifdef COMPAT_csum_offset";
+    print "\thdr->flags = 0;"
+    print "\thdr->csum_offset = hdr->csum_start = 0;"
+    print "#else"
     need_endif_indent_brace = 1;
 }
 

@@ -63,6 +63,8 @@ do {							\
 } while(0)
 #define netif_rx_schedule(dev, napi) netif_rx_schedule(dev)
 
+#define COMPAT_csum_offset
+
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,23)
 
 #define scsi_cmd_ioctl(filp, rq, gendisk, cmd, data) \
@@ -84,8 +86,6 @@ do {							\
 
 #define list_first_entry(ptr, type, member) \
 	list_entry((ptr)->next, type, member)
-
-#define COMPAT_csum_offset
 
 static inline void * __must_check krealloc(const void *data, size_t size,
 					   gfp_t gfp)
