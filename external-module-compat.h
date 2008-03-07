@@ -13,6 +13,8 @@
 #define COMPAT_cb_softirq
 #endif
 
+#define COMPAT_csum_offset
+
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,24)
 
 struct virtio_device_id {
@@ -62,8 +64,6 @@ do {							\
 	(dev)->weight = 16;				\
 } while(0)
 #define netif_rx_schedule(dev, napi) netif_rx_schedule(dev)
-
-#define COMPAT_csum_offset
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,23)
 
