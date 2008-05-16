@@ -58,6 +58,7 @@ struct napi_struct {
 
 #define napi_enable(napi) netif_poll_enable(dev)
 #define napi_disable(napi) netif_poll_disable(dev)
+#define napi_schedule(napi) netif_rx_schedule(dev, NULL)
 #define netif_napi_add(dev, napi, pollfn, weightval)	\
 do {							\
 	(dev)->poll = (pollfn);				\
