@@ -48,8 +48,9 @@
     print "	netif_rx_complete(vi->dev);";
     print "	no_work = vi->rvq->vq_ops->enable_cb(vi->rvq);";
     print "";
-    print "	if (!no_work && netif_rx_reschedule(vi->dev, received)) {";
-    print "		skb = NULL;";
+    print "	if (!no_work && netif_rx_schedule_prep(vi->dev)) {";
+    print "		vi->rvq->vq_ops->disable_cb(vi->rvq);";
+    print "		__netif_rx_schedule(vi->dev);";
     print "		goto again;";
     print "	}";
     print "";
