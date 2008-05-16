@@ -35,8 +35,10 @@ static inline void sg_init_table(struct scatterlist *sgl, unsigned int nents)
 
 static inline void end_dequeued_request(struct request *rq, int uptodate)
 {
-	if (!end_that_request_first(rq, uptodate, rq->hard_nr_sectors))
+	if (!end_that_request_first(rq, uptodate, rq->hard_nr_sectors)) {
+		add_disk_randomness(rq->rq_disk);
 		end_that_request_last(rq, uptodate);
+	}
 }
 
 #define DECLARE_MAC_BUF(var) char var[18] __maybe_unused
