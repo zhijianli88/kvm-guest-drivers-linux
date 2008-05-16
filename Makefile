@@ -27,6 +27,7 @@ sync:
 	$(call hack, virtio.c)
 	$(call hack, virtio_pci.c)
 	$(call hack, virtio_net.c)
+	$(call hack, virtio_blk.c)
 
 install:
 	mkdir -p $(DESTDIR)/$(INSTALLDIR)

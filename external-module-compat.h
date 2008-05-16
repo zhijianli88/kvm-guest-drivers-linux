@@ -25,6 +25,7 @@ struct virtio_device_id {
 #define VIRTIO_DEV_ANY_ID	0xffffffff
 
 #define COMPAT_kobject_uevent_env
+#define COMPAT_modaliases
 
 #define sg_page(sg)	((sg)->page)
 

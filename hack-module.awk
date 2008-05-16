@@ -1,3 +1,15 @@
+/^MODULE_DESCRIPTION\("Virtio network driver"\);/ {
+    print "#ifdef COMPAT_modaliases"
+    print "MODULE_ALIAS(\"virtio:d00000001v*\");"
+    print "#endif"
+}
+
+/^MODULE_DESCRIPTION\("Virtio block driver"\);/ {
+    print "#ifdef COMPAT_modaliases"
+    print "MODULE_ALIAS(\"virtio:d00000002v*\");"
+    print "#endif"
+}
+
 /^static int virtio_uevent\(/ {
     virtio_uevent = 1;
     print "#ifdef COMPAT_kobject_uevent_env";
