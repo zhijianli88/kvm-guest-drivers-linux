@@ -118,7 +118,9 @@ extern int skb_to_sgvec(struct sk_buff *skb, struct scatterlist *sg, int offset,
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,19)
 
+#if !defined(RHEL_RELEASE_CODE) || RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(5,2)
 typedef _Bool bool;
+#endif
 
 #define true (1)
 #define false (0)
