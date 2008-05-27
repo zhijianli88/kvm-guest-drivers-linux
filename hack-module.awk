@@ -139,7 +139,7 @@
 
 /skb_transport_header/ {
     print "#ifdef COMPAT_transport_header";
-    print "BUG();";
+    print "\t\thdr->hdr_len = skb->h.raw - skb->data;";
     print "#else";
     need_endif = 1;
 }
