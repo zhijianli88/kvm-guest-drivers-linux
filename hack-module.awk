@@ -114,7 +114,11 @@
 }
 
 /flags \& VIRTIO_NET_HDR_F_NEEDS_CSUM\)/ {
-    print "#ifndef COMPAT_csum_offset";
+    print "#ifdef COMPAT_csum_offset";
+    print "\tif (hdr->flags & VIRTIO_NET_HDR_F_NEEDS_CSUM) {";
+    print "\t\tskb->ip_summed = CHECKSUM_UNNECESSARY;";
+    print "\t}";
+    print "#else"
     need_endif_indent_brace = 1
 }
 
