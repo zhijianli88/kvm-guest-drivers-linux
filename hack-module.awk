@@ -124,10 +124,17 @@
 
 /ip_summed == CHECKSUM_PARTIAL\)/ {
     print "#ifdef COMPAT_csum_offset";
-    print "\thdr->flags = 0;"
-    print "\thdr->csum_offset = hdr->csum_start = 0;"
+    print "\tif (skb->ip_summed == CHECKSUM_HW) {"
     print "#else"
-    need_endif_indent_brace = 1;
+    need_endif = 1;
+}
+
+/hdr->csum_start = skb->csum_start/ {
+    print "#ifdef COMPAT_csum_offset";
+    print "\t\thdr->csum_start = skb->h.raw - skb->data;";
+    print "\t\thdr->csum_offset = skb->csum;";
+    print "#else"
+    need_endif = 1;
 }
 
 /skb_transport_header/ {
