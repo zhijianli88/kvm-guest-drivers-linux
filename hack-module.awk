@@ -134,6 +134,9 @@
     print "\t\thdr->csum_start = skb->h.raw - skb->data;";
     print "\t\thdr->csum_offset = skb->csum;";
     print "#else"
+}
+
+/hdr->csum_offset = skb->csum_offset/ {
     need_endif = 1;
 }
 
