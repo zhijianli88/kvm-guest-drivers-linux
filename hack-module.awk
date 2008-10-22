@@ -148,6 +148,12 @@
     need_endif = 1;
 }
 
+/.set_tx_csum = virtnet_set_tx_csum,/ {
+    print "\t.get_tx_csum = ethtool_op_get_tx_csum,";
+    print "\t.get_sg = ethtool_op_get_sg,";
+    print "\t.get_tso = ethtool_op_get_tso,";
+}
+
 { sub(/\<pci_dev->revision\>/, "pci_dev_revision(pci_dev)") }
 
 { print }
